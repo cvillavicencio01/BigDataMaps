@@ -23,7 +23,9 @@ public class ProjetMaps {
 	
 	public static void main(String[] args) throws IOException {
 
-		String testFiles = "hdfs://ripoux:9000/user/raw_data/dem3/N29W113.hgt,hdfs://ripoux:9000/user/raw_data/dem3/N41W112.hgt,hdfs://ripoux:9000/user/raw_data/dem3/N16W062.hgt"; 
+		String hadoopHome  = System.getenv("HADOOP_HOME");
+		
+		String testFiles = hadoopHome+"/user/raw_data/dem3/N29W113.hgt,"+hadoopHome+"/user/raw_data/dem3/N41W112.hgt,"+hadoopHome+"/user/raw_data/dem3/N16W062.hgt"; 
 
 		SparkConf conf = new SparkConf().setAppName("Projet Maps");
 		JavaSparkContext context = new JavaSparkContext(conf);
