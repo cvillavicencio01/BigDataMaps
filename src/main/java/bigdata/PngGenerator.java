@@ -2,6 +2,7 @@ package bigdata;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -9,9 +10,15 @@ import java.nio.ShortBuffer;
 
 import javax.imageio.ImageIO;
 
-public class PngGenerator {
+import scala.Serializable;
+
+public class PngGenerator implements Serializable {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static final int HEIGHT = 1201;
 	static final int WIDTH = 1201;
 	static final int GRADIENT_LENGHT = 25000;
@@ -32,6 +39,26 @@ public class PngGenerator {
 	
 		
 	public void generateWithImageGradient(String imagePath) {
+		
+/*
+ * import java.awt.Image;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+
+// ...
+
+BufferedImage sourceImage = ImageIO.read(inputStream);
+Image thumbnail = sourceImage.getScaledInstance(width, -1, Image.SCALE_SMOOTH);
+BufferedImage bufferedThumbnail = new BufferedImage(thumbnail.getWidth(null),
+                                                    thumbnail.getHeight(null),
+                                                    BufferedImage.TYPE_INT_RGB);
+bufferedThumbnail.getGraphics().drawImage(thumbnail, 0, 0, null);
+ImageIO.write(bufferedThumbnail, "jpeg", outputStream);
+ * 
+ * */
+		
+		
+		
 		
 		URL url =  ProjetMaps.class.getResource(imagePath); 
 		BufferedImage image = null;
@@ -74,6 +101,26 @@ public class PngGenerator {
 	
 	public void generateWithDefaults() {
 	
+	}
+	
+	public byte[] getBytes() {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		try {
+			
+			ImageIO.write(img, "png", baos );
+		
+		baos.flush();
+		byte[] imageInByte = baos.toByteArray();
+		baos.close();
+		
+		return imageInByte;
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public void writePng(String name) {
