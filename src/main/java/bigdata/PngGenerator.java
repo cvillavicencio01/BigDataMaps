@@ -1,6 +1,7 @@
 package bigdata;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -23,8 +24,8 @@ public class PngGenerator implements Serializable {
 	static final int WIDTH = 1201;
 	static final int GRADIENT_LENGHT = 25000;
 	
-	ShortBuffer sb = null;
-	BufferedImage img =null;
+	private ShortBuffer sb = null;
+	private BufferedImage img = null;
 	
 	public PngGenerator(ShortBuffer sb) {
 			this.sb = sb;
@@ -37,28 +38,17 @@ public class PngGenerator implements Serializable {
 		this.sb = sb;
 	}
 	
+	public void generateEmtyImageWithColor(Color color) {
+		img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		
+		Graphics2D graphics = img.createGraphics();
+		
+		graphics.setColor (color);
+		graphics.fillRect ( 0, 0, img.getWidth(), img.getHeight());
+	
+	}
 		
 	public void generateWithImageGradient(String imagePath) {
-		
-/*
- * import java.awt.Image;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-
-// ...
-
-BufferedImage sourceImage = ImageIO.read(inputStream);
-Image thumbnail = sourceImage.getScaledInstance(width, -1, Image.SCALE_SMOOTH);
-BufferedImage bufferedThumbnail = new BufferedImage(thumbnail.getWidth(null),
-                                                    thumbnail.getHeight(null),
-                                                    BufferedImage.TYPE_INT_RGB);
-bufferedThumbnail.getGraphics().drawImage(thumbnail, 0, 0, null);
-ImageIO.write(bufferedThumbnail, "jpeg", outputStream);
- * 
- * */
-		
-		
-		
 		
 		URL url =  ProjetMaps.class.getResource(imagePath); 
 		BufferedImage image = null;

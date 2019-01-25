@@ -1,14 +1,18 @@
 package bigdata;
 
 
+import java.awt.Color;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.ShortBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.AbstractJavaRDDLike;
 import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
 import org.apache.spark.input.PortableDataStream;
@@ -63,7 +67,40 @@ public class ProjetMaps {
 			System.exit(-1);
 		}
 	}
+	
 
+	public static ArrayList<String>  getAllCoordinates() {
+		
+		ArrayList<String> coordinates = new ArrayList<String>();
+
+		for(int x = -180; x <=179; x++) {
+
+			for(int y = -179; y<=180; y++) {
+
+				if (y <= 0 && x < 0)
+
+					coordinates.add(String.format("N%02dW%03d", -1*y,-1*x));
+
+				else if (y <= 0 && x >= 0)
+
+					coordinates.add(String.format("N%02dE%03d", -1*y,x));
+
+				else if (y > 0 && x < 0)
+
+					coordinates.add(String.format("S%02dW%03d", y,-1*x));
+
+				else if (y > 0 && x >= 0)
+
+					coordinates.add(String.format("S%02dE%03d", y,x));
+
+			}
+
+		}
+		
+		return coordinates;
+	}
+	
+	
 
 	public static void main(String[] args) throws IOException {
 
@@ -96,7 +133,6 @@ public class ProjetMaps {
 			streamHBaseRDD.forEachRemaining(hgtFile -> {
 
 
-
 				ShortBuffer sb = null;	
 
 				ByteBuffer bb = ByteBuffer.allocateDirect(hgtFile._2.toArray().length);
@@ -109,11 +145,6 @@ public class ProjetMaps {
 				generator.generateWithImageGradient("/images/gradient.png");
 
 				String fileName = hgtFile._1.substring(hgtFile._1.indexOf(SUBPATH)+SUBPATH.length(), (hgtFile._1.indexOf(SUBPATH)+SUBPATH.length())+NAME_SIZE).toUpperCase();
-
-	//			generator.writePng(fileName);
-
-
-
 
 
 
@@ -133,6 +164,51 @@ public class ProjetMaps {
 			table.close();
 
 		});
+		
+		
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		List<String> rddCoordinates = streamRDD.keys().collect();
+		ArrayList<String> allCoordinates  = getAllCoordinates();
+		
+		for (String coor : rddCoordinates) {
+			allCoordinates.remove(coor);
+		}
+		
+		JavaRDD<String> emptyCoordinates = context.parallelize(allCoordinates);
+		
+		
+		emptyCoordinates.foreachPartition(coordinateHBaseRDD -> { 
+			
+			Configuration hconf = HBaseConfiguration.create();
+			Connection con = ConnectionFactory.createConnection(hconf);
+
+			Table table = con.getTable(TableName.valueOf(TABLE_NAME));
+			
+			PngGenerator generator = new PngGenerator();
+			
+			generator.generateEmtyImageWithColor(new Color(73,26,225));
+			
+			coordinateHBaseRDD.forEachRemaining(coordinate -> {
+				
+				Put put = new Put(Bytes.toBytes(coordinate));
+				put.addColumn(FAMILY, ROW, generator.getBytes());
+
+				try {
+					table.put(put);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			});
+			
+			table.close();
+		});
+		
+		
 
 
 		context.close();
