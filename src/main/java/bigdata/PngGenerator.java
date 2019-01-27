@@ -38,7 +38,7 @@ public class PngGenerator implements Serializable {
 		this.sb = sb;
 	}
 	
-	public void generateEmtyImageWithColor(Color color) {
+	public void generateEmptyImageWithColor(Color color) {
 		img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		
 		Graphics2D graphics = img.createGraphics();

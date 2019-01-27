@@ -189,7 +189,7 @@ public class ProjetMaps {
 			
 			PngGenerator generator = new PngGenerator();
 			
-			generator.generateEmtyImageWithColor(new Color(73,26,225));
+			generator.generateEmptyImageWithColor(new Color(73,26,225));
 			
 			coordinateHBaseRDD.forEachRemaining(coordinate -> {
 				
