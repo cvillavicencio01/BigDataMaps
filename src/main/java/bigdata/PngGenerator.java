@@ -13,12 +13,13 @@ import javax.imageio.ImageIO;
 
 import scala.Serializable;
 
+/**
+ * PngGenerator contains all the functions needed to convert, generate and create PNG 
+ */
+
 public class PngGenerator implements Serializable {
 
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	static final int HEIGHT = 1201;
 	static final int WIDTH = 1201;
@@ -27,6 +28,10 @@ public class PngGenerator implements Serializable {
 	private ShortBuffer sb = null;
 	private BufferedImage img = null;
 	
+	/**
+	 * Constructor for the PngGenerator Class with a short buffer
+	 * @param sb ShortBuffer
+	 */
 	public PngGenerator(ShortBuffer sb) {
 			this.sb = sb;
 	}
@@ -38,6 +43,12 @@ public class PngGenerator implements Serializable {
 		this.sb = sb;
 	}
 	
+	/**
+	 * Generates an image filled with a color
+	 * @param color The color we want to fill our image with
+	 * @return void
+	 */
+
 	public void generateEmptyImageWithColor(Color color) {
 		img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		
@@ -48,7 +59,12 @@ public class PngGenerator implements Serializable {
 	
 	}
 		
-	public void generateWithImageGradient(String imagePath) {
+	/**
+	 * Generates an image filled with the gradient for the height
+	 * @param imagePath Path to a gradient PNG used
+	 * @return void
+	 */
+	public void generateImageWithGradient(String imagePath) {
 		
 		URL url =  ProjetMaps.class.getResource(imagePath); 
 		BufferedImage image = null;
@@ -93,6 +109,10 @@ public class PngGenerator implements Serializable {
 	
 	}
 	
+	/**
+	 * Transcript a PNG file to an Array of byte
+	 * @return byte[]
+	 */
 	public byte[] getBytes() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
@@ -112,6 +132,12 @@ public class PngGenerator implements Serializable {
 		}
 		return null;
 	}
+
+	/**
+	 * Save our generated image in a PNG file
+	 * @param name Name we want for our file
+	 * @return void
+	 */
 	
 	public void writePng(String name) {
 		try {

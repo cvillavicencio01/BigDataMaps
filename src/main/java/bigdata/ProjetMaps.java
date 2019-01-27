@@ -45,6 +45,12 @@ public class ProjetMaps {
 	private static final byte[] ROW    = Bytes.toBytes("image");
 	private static final byte[] TABLE_NAME = Bytes.toBytes("villavicencio");
 
+	/**
+	 * Clean the table if already one exists
+	 * @param admin name of administrator
+	 * @param table Contains the details of an HBase table
+	 * @return void
+	 */
 	public static void createOrOverwrite(Admin admin, HTableDescriptor table) throws IOException {
 		if (admin.tableExists(table.getTableName())) {
 			admin.disableTable(table.getTableName());
@@ -53,7 +59,11 @@ public class ProjetMaps {
 		admin.createTable(table);
 	}
 
-
+	/**
+	 * Creates an HBase table
+	 * @param connection Connection
+	 * @return void
+	 */
 	public static void createTable(Connection connect) {
 		try {
 			final Admin admin = connect.getAdmin(); 
@@ -67,7 +77,11 @@ public class ProjetMaps {
 			System.exit(-1);
 		}
 	}
-	
+
+	/**
+	 * Generates an Array containing all the coordinates for our htg files
+	 * @return ArrayList<String>
+	 */
 
 	public static ArrayList<String>  getAllCoordinates() {
 		
@@ -142,7 +156,7 @@ public class ProjetMaps {
 
 
 				generator.setSb(sb);
-				generator.generateWithImageGradient("/images/gradient.png");
+				generator.generateImageWithGradient("/images/gradient.png");
 
 				String fileName = hgtFile._1.substring(hgtFile._1.indexOf(SUBPATH)+SUBPATH.length(), (hgtFile._1.indexOf(SUBPATH)+SUBPATH.length())+NAME_SIZE).toUpperCase();
 

@@ -25,7 +25,13 @@ public class MapProjection {
         return deg * (Math.PI / 180);
     }
 
-
+    /**
+	 * Uses a latitude and a longitude to return a corresponding Point
+	 * @param lat Latitude 
+     * @param lng Longitude
+     * @param zoom Zoom
+	 * @return Point
+	 */
     Point fromLatLngToPoint(double lat, double lng, int zoom)
     {
         Point point = new Point(0, 0);
@@ -41,6 +47,13 @@ public class MapProjection {
         return point;
      }
     
+     /**
+	 * Uses a latitude and a longitude to return the Point corresponding to a tile position
+	 * @param lat Latitude 
+     * @param lng Longitude
+     * @param zoom Zoom
+	 * @return void
+	 */
     
     public Point degToTilePosition(double lat, double lon, int zoom) {
     	double latRad = Math.toRadians(lat);

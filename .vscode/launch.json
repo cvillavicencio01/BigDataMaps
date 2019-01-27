@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - ProjetMaps",
+            "request": "launch",
+            "mainClass": "bigdata.ProjetMaps",
+            "projectName": "ProjetMaps"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - ProjectMaps",
+            "request": "launch",
+            "mainClass": "bigdata.ProjectMaps",
+            "projectName": "ProjetMaps"
+        }
+    ]
+}
