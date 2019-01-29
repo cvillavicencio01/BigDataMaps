@@ -78,8 +78,7 @@ public class PngGenerator implements Serializable {
 		try {
 			
 			img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
-			    
-			
+
 			for (int x = 0; x < sb.limit(); x++) {
 
 				int fila = x / HEIGHT;
@@ -97,7 +96,7 @@ public class PngGenerator implements Serializable {
 				img.setRGB(columna, fila, mycolor.getRGB());
 
 			}
-			    	
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -138,7 +137,6 @@ public class PngGenerator implements Serializable {
 	 * @param name Name we want for our file
 	 * @return void
 	 */
-	
 	public void writePng(String name) {
 		try {
 			ImageIO.write(img, "png", new File(name+".png"));

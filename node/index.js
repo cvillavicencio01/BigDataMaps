@@ -24,11 +24,8 @@ Number.prototype.pad = function(size) {
 }
 
 http.createServer(function(req, res) {
-
     res.writeHead(200);
-  
     res.end('Salut tout le monde !');
-  
   });
 
 app.use(bodyParser.json());
@@ -63,7 +60,6 @@ app.get('/:x/:y/:z.png', function (req, res){
 		 return;
 	}
 
-	
 	if (z>=0 && z<=89){
 		var column = 89 - z;
 		lig = "N"+(column).pad(2);

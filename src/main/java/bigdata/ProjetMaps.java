@@ -27,8 +27,6 @@ import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
 
 
-
-
 public class ProjetMaps {
 
 	static final String SUBPATH = "dem3/";
@@ -74,7 +72,6 @@ public class ProjetMaps {
 	 * Generates an Array containing all the coordinates for our htg files
 	 * @return ArrayList<String>
 	 */
-
 	public static ArrayList<String>  getAllCoordinates() {
 		
 		ArrayList<String> coordinates = new ArrayList<String>();

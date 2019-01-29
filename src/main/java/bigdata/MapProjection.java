@@ -1,4 +1,9 @@
 
+
+/**
+ * MapProjection contains the function used to locate Points 
+ * corresponding to tiles
+ */
 public class MapProjection {
 	private final int TILE_SIZE = 256;
     private Point pixelOrigin;
