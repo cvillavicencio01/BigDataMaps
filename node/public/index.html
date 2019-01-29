@@ -9,13 +9,14 @@
         <div id="map" style="width:100%; height:100%"></div>
     </body>
 </html>
-<script type="text/javascript">
+<script type="text/javascript">tileSize: 512
     function initialize() {
-        var map = L.map('map').setView([48.833, 2.333], 7); // LIGNE 14
+        var map = L.map('map').setView([48.833, 2.333], 8); // LIGNE 14
 
-        var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 16
+        var osmLayer = L.tileLayer('http://jordan:8000/{z}/{x}/{y}.png', { // LIGNE 16
             attribution: '© OpenStreetMap contributors',
-            maxZoom: 19
+            maxZoom: 9,
+	    tileSize: 256
         });
     
         map.addLayer(osmLayer);
