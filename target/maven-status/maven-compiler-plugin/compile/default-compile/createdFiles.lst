@@ -1,3 +1,4 @@
+bigdata/ProjetMaps.class
 bigdata/PngGenerator.class
-MapProjection.class
-MapProjection$Point.class
+bigdata/MapProjection.class
+bigdata/MapProjection$Point.class
