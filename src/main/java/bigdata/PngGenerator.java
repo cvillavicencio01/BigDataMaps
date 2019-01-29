@@ -39,6 +39,11 @@ public class PngGenerator implements Serializable {
 	public PngGenerator() {
 	}
 
+	
+	public void flushBuffer() {
+		img.flush();
+	}
+	
 	public void setSb(ShortBuffer sb) {
 		this.sb = sb;
 	}
@@ -81,25 +86,28 @@ public class PngGenerator implements Serializable {
 
 			for (int x = 0; x < sb.limit(); x++) {
 
-				int fila = x / HEIGHT;
-				int columna = x % HEIGHT;
+				int row = x / HEIGHT;
+				int column = x % HEIGHT;
 
-				int fila_grad = (10000 + sb.get(x)) / 200;
-				int colum_grad = (10000 + sb.get(x)) % 200;
+				int offset = (10000 + sb.get(x));
+				
+				int row_grad = offset / 200;
+				int colum_grad = offset % 200;
 
-				Color mycolor;
+				Color pixelcolor;
 				if (sb.get(x) < -10000 || sb.get(x) > 15000) 
-					mycolor = Color.RED;
+					pixelcolor = Color.RED;
 				else 
-					mycolor = new Color(image.getRGB(colum_grad, fila_grad));
+					pixelcolor = new Color(image.getRGB(colum_grad, row_grad));
 
-				img.setRGB(columna, fila, mycolor.getRGB());
+				img.setRGB(column, row, pixelcolor.getRGB());
 
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		image.flush();
 
 	}
 	

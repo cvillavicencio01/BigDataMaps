@@ -128,8 +128,10 @@ public class ProjetMaps {
 		
 		ShortBuffer sb = null;	
 
-		ByteBuffer bb = ByteBuffer.allocateDirect(hgtFile._2.toArray().length);
-		bb.put(hgtFile._2.toArray());
+		byte[] hgtArray = hgtFile._2.toArray();
+		
+		ByteBuffer bb = ByteBuffer.allocateDirect(hgtArray.length);
+		bb.put(hgtArray);
 		bb.flip();
 		sb = bb.order(ByteOrder.BIG_ENDIAN).asShortBuffer();
 		
@@ -152,19 +154,27 @@ public class ProjetMaps {
 			Table table = getHBaseConnection().getTable(TableName.valueOf(TABLE_NAME));
 
 			PngGenerator generator = new PngGenerator();
-
+			
 			streamHBaseRDD.forEachRemaining(hgtFile -> {
-
+								
 				generator.setSb(hgtToBuffer(hgtFile));
 				generator.generateImageWithGradient("/images/gradient.png");
 
-				String fileName = hgtFile._1.substring(
-						hgtFile._1.indexOf(SUBPATH)+SUBPATH.length(), 
-						(hgtFile._1.indexOf(SUBPATH)+SUBPATH.length())+NAME_SIZE)
-						.toUpperCase();
+				String fileName = hgtFile._1.substring(hgtFile._1.length() - 11).substring(0,7).toUpperCase();
+						
+						/*hgtFile._1.substring(
+						
+						hgtFile._1.indexOf(SUBPATH) + SUBPATH.length(), 
+						
+						(hgtFile._1.indexOf(SUBPATH)+SUBPATH.length())+NAME_SIZE
+						
+						)
+						.toUpperCase();*/
 
 
 				insertImage(table, fileName, generator.getBytes());
+				
+				generator.flushBuffer();
 
 			});
 
