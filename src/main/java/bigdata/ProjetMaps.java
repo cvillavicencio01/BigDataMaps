@@ -1,6 +1,5 @@
 package bigdata;
 
-
 import java.awt.Color;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -8,17 +7,13 @@ import java.nio.ByteOrder;
 import java.nio.ShortBuffer;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.AbstractJavaRDDLike;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-
 import org.apache.spark.input.PortableDataStream;
-
 import scala.Tuple2;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
@@ -38,9 +33,6 @@ public class ProjetMaps {
 
 	static final String SUBPATH = "dem3/";
 	static final int NAME_SIZE = 7;
-
-
-
 	private static final byte[] FAMILY = Bytes.toBytes("hgt_data");
 	private static final byte[] ROW    = Bytes.toBytes("image");
 	private static final byte[] TABLE_NAME = Bytes.toBytes("villavicencio");
@@ -177,9 +169,6 @@ public class ProjetMaps {
 
 			table.close();
 		});
-		
-		
-		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		

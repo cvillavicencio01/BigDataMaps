@@ -5,23 +5,20 @@ public class MapProjection {
     private double pixelsPerLonDegree;
     private double pixelsPerLonRadian;
 
-    public MapProjection()
-    {
+    public MapProjection() {
         pixelOrigin = new Point(TILE_SIZE / 2.0,TILE_SIZE / 2.0);
         pixelsPerLonDegree = TILE_SIZE / 360.0;
         pixelsPerLonRadian = TILE_SIZE / (2 * Math.PI);
     }
 
-    double bound(double val, double valMin, double valMax)
-    {
+    double bound(double val, double valMin, double valMax) { 
         double res;
         res = Math.max(val, valMin);
         res = Math.min(res, valMax);
         return res;
     }
 
-    double degreesToRadians(double deg) 
-    {
+    double degreesToRadians(double deg) {
         return deg * (Math.PI / 180);
     }
 
@@ -32,8 +29,7 @@ public class MapProjection {
      * @param zoom Zoom
 	 * @return Point
 	 */
-    Point fromLatLngToPoint(double lat, double lng, int zoom)
-    {
+    Point fromLatLngToPoint(double lat, double lng, int zoom) {
         Point point = new Point(0, 0);
 
         point.x = pixelOrigin.x + lng * pixelsPerLonDegree;       
@@ -65,13 +61,11 @@ public class MapProjection {
 		return new Point(x,y);
     }
     
-    class Point
-    {
+    class Point {
         public double x;
         public double y;
 
-        public Point(double x, double y)
-        {
+        public Point(double x, double y) {
             this.x = x;
             this.y = y;
         }
@@ -99,6 +93,5 @@ public class MapProjection {
 		public void setY(double y) {
 			this.y = y;
 		} 
-    }
-    
+    }    
 }

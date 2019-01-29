@@ -86,9 +86,6 @@ app.get('/:x/:y/:z.png', function (req, res){
 })
 
 app.get('/', function (req, res) {
-
-
-
     res.send('BigData');
 })
 
