@@ -176,7 +176,6 @@ public class ProjetMaps {
 			});
 
 			table.close();
-
 		});
 		
 		
@@ -216,20 +215,11 @@ public class ProjetMaps {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
 			});
-			
+
 			table.close();
 		});
-		
-		
-
 
 		context.close();
 	}
-
-
-
-
-
 }

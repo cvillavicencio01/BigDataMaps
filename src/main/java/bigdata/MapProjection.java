@@ -65,7 +65,6 @@ public class MapProjection {
 		return new Point(x,y);
     }
     
-    
     class Point
     {
         public double x;
